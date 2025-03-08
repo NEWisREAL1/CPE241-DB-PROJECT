@@ -49,7 +49,7 @@
   <body class="login-page bg-body-secondary">
     <div class="login-box">
       <div class="login-logo">
-        <a href="./index.php"><b>Admin</b>LTE</a>
+        <a href="./index.php"><b>Flight Reservation</b></a>
       </div>
       <div class="card">
         <div class="card-body login-card-body">
