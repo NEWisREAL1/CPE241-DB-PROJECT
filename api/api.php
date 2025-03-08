@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-include '../pages/db.php';
+include '../db.php';
 
 $table = isset($_GET['table']) ? $_GET['table'] : '';
 $query = "SELECT COUNT(*) as total_records FROM `$table`";

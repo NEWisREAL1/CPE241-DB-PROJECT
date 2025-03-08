@@ -12,7 +12,6 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>FlightDB | Manage Table</title>
-  <!--begin::Primary Meta Tags-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="title" content="AdminLTE v4 | Dashboard" />
   <meta name="author" content="ColorlibHQ" />
@@ -26,7 +25,7 @@
     integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="../../dist/css/adminlte.css" />
+  <link rel="stylesheet" href="./css/adminlte.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
     integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
@@ -34,14 +33,10 @@
 </head>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-  <!--begin::App Wrapper-->
   <div class="app-wrapper">
 
-    <!--begin::Header-->
     <nav class="app-header navbar navbar-expand bg-body">
-      <!--begin::Container-->
       <div class="container-fluid">
-        <!--begin::Start Navbar Links-->
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
@@ -49,8 +44,6 @@
             </a>
           </li>
         </ul>
-        <!--end::Start Navbar Links-->
-        <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
           <li class="nav-item d-none d-md-block">
             <a href="logout.php?logout=true" class="nav-link">
@@ -58,29 +51,17 @@
             </a>
           </li>
         </ul>
-        <!--end::End Navbar Links-->
       </div>
-      <!--end::Container-->
     </nav>
-    <!--end::Header-->
 
-    <!--begin::Sidebar-->
     <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-      <!--begin::Sidebar Brand-->
       <div class="sidebar-brand">
-        <!--begin::Brand Link-->
         <a href="./index.html" class="brand-link">
-          <!--begin::Brand Text-->
           <span class="brand-text fw-light">FlightDB Admin</span>
-          <!--end::Brand Text-->
         </a>
-        <!--end::Brand Link-->
       </div>
-      <!--end::Sidebar Brand-->
-      <!--begin::Sidebar Wrapper-->
       <div class="sidebar-wrapper">
         <nav class="mt-2">
-          <!--begin::Sidebar Menu-->
           <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
 
             <li class="nav-item menu-open">
@@ -111,21 +92,16 @@
             </li>
 
           </ul>
-          <!--end::Sidebar Menu-->
         </nav>
       </div>
-      <!--end::Sidebar Wrapper-->
     </aside>
-    <!--end::Sidebar-->
 
-    <!--begin::App Main-->
     <main class="app-main">
 
       <div class='card my-3 mx-5'>
         <div class='card-header'>
           <h2>Select Table to View</h2>
         </div>
-        <!-- /.card-header -->
         <div class='card-body p-5'>
           <form method="get">
             <div class="row">
@@ -147,7 +123,6 @@
             <input type="submit" value="View Table" class="btn btn-primary">
           </form>
         </div>
-        <!-- /.card-body -->
       </div>
 
       <?php
@@ -191,26 +166,18 @@
       }
       ?>
     </main>
-    <!--end::App Main-->
 
   </div>
-  <!--end::App Wrapper-->
 
-  <!--begin::Script-->
-  <!--begin::Third Party Plugin(OverlayScrollbars)-->
   <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
     integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
-  <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"></script>
-  <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
-  <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-  <script src="../../dist/js/adminlte.js"></script>
-  <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+  <script src="./js/adminlte.js"></script>
   <script>
     const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
     const Default = {
@@ -231,7 +198,6 @@
       }
     });
   </script>
-  <!--end::OverlayScrollbars Configure-->
 </body>
 
 </html>
