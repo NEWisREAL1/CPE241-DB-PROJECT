@@ -78,8 +78,43 @@
     </aside>
 
     <main class="app-main">
-
-      <div class='card my-3 mx-5'>
+      <div class="container-fluid py-3">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header"> Managements System: <?php echo isset($_GET["manage"]) ? ucfirst($_GET["manage"]) : "Overall" ?> </div>
+              <div class="card-body">
+                <?php
+                  if(isset($_GET["manage"])){
+                    if($_GET["manage"] == "flight"){
+                    ?>
+                      <div class="list-group">
+                        <a href="?manage=flight&kind=flight"   class="list-group-item list-group-item-action">Manage Flights</a>
+                        <a href="?manage=flight&kind=seat"     class="list-group-item list-group-item-action">Manage Seats</a>
+                        <a href="?manage=flight&kind=aircraft" class="list-group-item list-group-item-action">Manage Aircrafts</a>
+                        <a href="?manage=flight&kind=airline"  class="list-group-item list-group-item-action">Manage Airlines</a>
+                        <a href="?manage=flight&kind=airport"  class="list-group-item list-group-item-action">Manage Airports</a>
+                      </div>
+                    <?php
+                    }else if($_GET["manage"] == "user"){
+                    ?>
+                      <div class="list-group">
+                        <a href="?manage=user&kind=passenger" class="list-group-item list-group-item-action">Manage Passenger</a>
+                        <a href="?manage=user&kind=booking"   class="list-group-item list-group-item-action">Manage Booking</a>
+                        <a href="?manage=user&kind=user"      class="list-group-item list-group-item-action">Manage User</a>
+                      </div>
+                    <?php
+                    }
+                  }else{
+                    echo "<h2>Overall Management</h2>";
+                  }
+                  ?>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class='card my-3 mx-3'>
         <div class='card-header'>
           <h2>Select Table to View</h2>
         </div>
@@ -145,7 +180,7 @@
 
         echo "</div>";
       }
-      ?>
+      ?> -->
     </main>
 
   </div>

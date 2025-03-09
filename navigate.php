@@ -1,7 +1,13 @@
 <?php
+// ---------------------
+// Prevention of direct access
 if(!defined('NAVIGATE_PHP')){
+    // 403 Forbidden header
+    header("HTTP/1.1 403 Forbidden");
     die("You are not allowed to access this page directly.");
 }
+// ---------------------
+// Function to generate navigation panel sidebar of the admin system
 function navigatePanel($page = null){
     if ($page == null) {
         echo "Error: Page not found";
@@ -19,7 +25,7 @@ function navigatePanel($page = null){
             </li>
             <li class="nav-header">Managements</li>
             <li class="nav-item">
-                <a href="<?php echo $page == "dashboard" ? "#" : "manage.php?manage=flight"; ?>" class="nav-link <?php echo $page == "mflight" ? "active" : "" ?>">
+                <a href="<?php echo $page == "mflight" ? "#" : "manage.php?manage=flight"; ?>" class="nav-link <?php echo $page == "mflight" ? "active" : "" ?>">
                     <i class="nav-icon bi bi-airplane"></i>
                     <p>
                         Manage flight
@@ -27,7 +33,7 @@ function navigatePanel($page = null){
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo $page == "dashboard" ? "#" : "manage.php?manage=user"; ?>" class="nav-link <?php echo $page == "muser" ? "active" : "" ?>">
+                <a href="<?php echo $page == "muser" ? "#" : "manage.php?manage=user"; ?>" class="nav-link <?php echo $page == "muser" ? "active" : "" ?>">
                     <i class="nav-icon bi bi-people"></i>
                     <p>
                         Manage user
@@ -35,7 +41,7 @@ function navigatePanel($page = null){
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo $page == "dashboard" ? "#" : "manage.php"; ?>" class="nav-link <?php echo $page == "moverall" ? "active" : "" ?>">
+                <a href="<?php echo $page == "moverall" ? "#" : "manage.php"; ?>" class="nav-link <?php echo $page == "moverall" ? "active" : "" ?>">
                     <i class="nav-icon bi bi-sliders"></i>
                     <p>
                         Manage
@@ -44,7 +50,7 @@ function navigatePanel($page = null){
             </li>
             <li class="nav-header">Analytics</li>
             <li class="nav-item">
-                <a href="<?php echo $page == "dashboard" ? "#" : "reports.php"; ?>" class="nav-link <?php echo $page == "report" ? "active" : "" ?>">
+                <a href="<?php echo $page == "report" ? "#" : "reports.php"; ?>" class="nav-link <?php echo $page == "report" ? "active" : "" ?>">
                     <i class="nav-icon bi bi-graph-up-arrow"></i>
                     <p>
                         Reports
