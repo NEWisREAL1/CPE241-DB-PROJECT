@@ -2,7 +2,11 @@
 if (!isset($_SESSION['admin'])) {
     header("Location: ./login.php");
 }
-include 'db.php'; ?>
+define("NAVIGATE_PHP", true);
+include 'navigate.php';
+include 'db.php'; 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,39 +64,7 @@ include 'db.php'; ?>
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                <nav class="mt-2">
-                    <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu"
-                        data-accordion="false">
-
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
-                                <i class="nav-icon bi bi-bar-chart-line"></i>
-                                <p>
-                                    Dashboard
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-table"></i>
-                                <p>
-                                    Manage Table
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="manage.php" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>View Table</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </nav>
+                <?php navigatePanel("dashboard"); ?>
             </div>
         </aside>
 
