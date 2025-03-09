@@ -67,8 +67,8 @@ while ($row = $result->fetch_assoc()) {
 $query = "SELECT DATE(bookingDate) AS `date`, COUNT(*) AS booking_count 
         FROM booking 
         WHERE MONTH(bookingDate) = MONTH(NOW()) 
-        GROUP BY bookingDate 
-        ORDER BY bookingDate;";
+        GROUP BY DATE(bookingDate) 
+        ORDER BY DATE(bookingDate);";
 $result = $conn->query($query);
 
 while ($row = $result->fetch_assoc()) {
