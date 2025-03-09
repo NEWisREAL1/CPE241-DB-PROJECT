@@ -109,7 +109,7 @@ include 'db.php'; ?>
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="info-box">
                                 <span class="info-box-icon text-bg-primary shadow-sm">
-                                    <i class="bi bi-gear-fill"></i>
+                                    <i class="bi bi-check-circle-fill"></i>
                                 </span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Today Bookings</span>
@@ -120,7 +120,7 @@ include 'db.php'; ?>
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="info-box">
                                 <span class="info-box-icon text-bg-danger shadow-sm">
-                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                    <i class="bi bi-currency-dollar"></i>
                                 </span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Today Ravenue</span>
@@ -131,7 +131,7 @@ include 'db.php'; ?>
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="info-box">
                                 <span class="info-box-icon text-bg-success shadow-sm">
-                                    <i class="bi bi-cart-fill"></i>
+                                    <i class="bi bi-person-fill"></i>
                                 </span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">New Members</span>
@@ -141,12 +141,12 @@ include 'db.php'; ?>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
                             <div class="card bg-gradient mb-4">
                                 <div class="card-header border-0">
                                     <h3 class="card-title">
                                         <i class="fas fa-map-marker-alt mr-1"></i>
-                                        Flight Traffic
+                                        Flight Demand
                                     </h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-primary btn-sm"
@@ -160,11 +160,91 @@ include 'db.php'; ?>
                                     <div id="world-map"></div>
                                 </div>
                             </div>
+                            <div class="card bg-gradient mb-4">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        Booking Trend
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            data-lte-toggle="card-collapse">
+                                            <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                            <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div id="booking-trend"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-5 connectedSortable">
-
+                        <div class="col-lg-5">
+                            <div class="card bg-gradient mb-4">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        All Flights Reservation Rate
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            data-lte-toggle="card-collapse">
+                                            <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                            <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div id="reservation-rate" style="min-height: 120px;"></div>
+                                </div>
+                            </div>
+                            <div class="card bg-gradient mb-4">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-map-marker-alt mr-1"></i>
+                                        Popular Routes
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            data-lte-toggle="card-collapse">
+                                            <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                                            <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <table class='table table-striped m-0'>
+                                        <thead>
+                                            <tr>
+                                                <th>Route</th>
+                                                <th style="text-align: right;"># of Flights</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td id="pop-route-1">—</td>
+                                                <td id="pop-count-1" style="text-align: right;">—</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="pop-route-2">—</td>
+                                                <td id="pop-count-2" style="text-align: right;">—</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="pop-route-3">—</td>
+                                                <td id="pop-count-3" style="text-align: right;">—</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="pop-route-4">—</td>
+                                                <td id="pop-count-4" style="text-align: right;">—</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="pop-route-5">—</td>
+                                                <td id="pop-count-5" style="text-align: right;">—</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
