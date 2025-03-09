@@ -2,25 +2,39 @@
 header("Content-Type: application/json");
 include '../db.php';
 
-$table = isset($_GET['table']) ? $_GET['table'] : '';
-$query = "SELECT COUNT(*) as total_records FROM `$table`";
+// --- QUERY FOR TRAFFIC CHOROPLETH MAP
+
+$query = "SELECT UPPER(a.airport_country) AS country, COUNT(f.flightNum) AS departure_count, COUNT(f2.flightNum) AS arrival_count
+        FROM airport a
+        LEFT JOIN flight f ON a.airportCode = f.depart_airportCode
+        LEFT JOIN flight f2 ON a.airportCode = f2.arrive_airportCode
+        GROUP BY a.airport_country
+        ORDER BY departure_count + arrival_count DESC;";
+
 $result = $conn->query($query);
 
 $data = [];
-if ($result) {
-    $data['total_records'] = $result->fetch_assoc()['total_records'];
+while ($row = $result->fetch_assoc()) {
+    $data['flight_traffic'][] = $row;
 }
 
-// Example aggregation: count grouped by a column (change `status` to your actual column)
-$query = "SELECT `class`, COUNT(*) as count FROM `$table` GROUP BY `class`";
+// --- QUERY FOR TODAY BOOKING
+
+$query = "SELECT COUNT(*) AS today_booking FROM booking";
 $result = $conn->query($query);
 
-$groupedData = [];
-while ($row = $result->fetch_assoc()) {
-    $groupedData[] = $row;
-}
+$data['today_booking'] = $result->fetch_assoc()['today_booking'];
 
-$data['grouped_by_class'] = $groupedData;
+// --- QUERY FOR TODAY RAVENUE
+
+// ----- nothing yet
+
+// --- QUERY FOR TODAY MEMBER
+
+$query = "SELECT COUNT(*) AS new_member FROM `user`";
+$result = $conn->query($query);
+
+$data['new_member'] = $result->fetch_assoc()['new_member'];
 
 echo json_encode($data);
 ?>
