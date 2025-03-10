@@ -25,7 +25,7 @@ function navigatePanel($page = null){
             </li>
             <li class="nav-header">Managements</li>
             <li class="nav-item">
-                <a href="<?php echo $page == "mflight" ? "#" : "manage.php?manage=flight"; ?>" class="nav-link <?php echo $page == "mflight" ? "active" : "" ?>">
+                <a href="<?php echo $page == "mflight" ? "#" : "manage.php?manage=flight&kind=flight"; ?>" class="nav-link <?php echo $page == "mflight" ? "active" : "" ?>">
                     <i class="nav-icon bi bi-airplane"></i>
                     <p>
                         Manage flight
@@ -33,7 +33,7 @@ function navigatePanel($page = null){
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo $page == "muser" ? "#" : "manage.php?manage=user"; ?>" class="nav-link <?php echo $page == "muser" ? "active" : "" ?>">
+                <a href="<?php echo $page == "muser" ? "#" : "manage.php?manage=user&kind=user"; ?>" class="nav-link <?php echo $page == "muser" ? "active" : "" ?>">
                     <i class="nav-icon bi bi-people"></i>
                     <p>
                         Manage user
