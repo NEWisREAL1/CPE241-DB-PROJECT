@@ -12,7 +12,10 @@ session_start();
             $stmt->execute();
             $columnResults = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             foreach($columnResults as $key => $value){
-                $columnResults[$key] = $value["COLUMN_NAME"];
+                $columnResults[$key] = array(
+                    "name" => $value["COLUMN_NAME"],
+                    "pkey" => $value["COLUMN_KEY"] == "PRI" ? true : false
+                );
             }
             echo json_encode($columnResults);
             die();
@@ -37,9 +40,9 @@ session_start();
         $totalFiltered = $totalData;
         $sql = "SELECT ".$columns." FROM ".$query_table;
         if(!empty($requestData['search']['value'])) {
-            $sql.=" AND (";
+            $sql.=" WHERE (";
             for($i=0 ; $i<count($columnResults); $i++){
-                $sql.=" ".$columnResults[$i]." LIKE '".$requestData['search']['value']."%' OR";
+                $sql.=" `".$columnResults[$i]."` LIKE '".$requestData['search']['value']."%' OR";
             }
             $sql = substr($sql, 0, -2);
             $sql.=" )";
@@ -48,6 +51,8 @@ session_start();
         $totalFiltered = $conn->affected_rows;
         $sql.=" ORDER BY ".$columnResults[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir']."  LIMIT ".
             $requestData['start']." ,".$requestData['length']."   ";
+
+        
         $result = $conn->query($sql);
         $data = array();
         while( $row = $result->fetch_assoc() ) {  // preparing an array
@@ -61,7 +66,8 @@ session_start();
             "draw"            => intval( $requestData['draw'] ),
             "recordsTotal"    => intval( $totalData ),
             "recordsFiltered" => intval( $totalFiltered ),
-            "data"            => $data   // total data array
+            "data"            => $data,   // total data array,
+            "sql"             => $sql
         );
         echo json_encode($json_data);
         die();

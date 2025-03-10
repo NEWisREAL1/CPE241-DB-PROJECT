@@ -95,14 +95,26 @@
                         <a href="?manage=flight&kind=aircraft" class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "aircraft" ? "active" : "" ?>">Manage Aircrafts</a>
                         <a href="?manage=flight&kind=airline"  class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "airline"  ? "active" : "" ?>">Manage Airlines</a>
                         <a href="?manage=flight&kind=airport"  class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "airport"  ? "active" : "" ?>">Manage Airports</a>
+                        <a href="?manage=flight&kind=transit"  class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "transit"  ? "active" : "" ?>">Manage Transit</a>
                       </div>
                     <?php
                     }else if($_GET["manage"] == "user"){
                     ?>
                       <div class="list-group">
-                        <a href="?manage=user&kind=user"      class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "user"      ? "active" : "" ?>">Manage User</a>
-                        <a href="?manage=user&kind=passenger" class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "passenger" ? "active" : "" ?>">Manage Passenger</a>
-                        <a href="?manage=user&kind=booking"   class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "booking"   ? "active" : "" ?>">Manage Booking</a>
+                        <a href="?manage=user&kind=user"                
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "user"      ? "active" : "" ?>">Manage User</a>
+                        <a href="?manage=user&kind=passenger"           
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "passenger" ? "active" : "" ?>">Manage Passenger</a>
+                        <a href="?manage=user&kind=booking"             
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "booking"   ? "active" : "" ?>">Manage Booking</a>
+                        <a href="?manage=user&kind=passenger_booking"   
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "passenger_booking"   ? "active" : "" ?>">Manage Passenger Booking</a>
+                        <a href="?manage=user&kind=booking_flight"   
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "booking_flight"   ? "active" : "" ?>">Manage Booking Flight</a>
+                        <a href="?manage=user&kind=ticket"   
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "ticket"   ? "active" : "" ?>">Manage Ticket</a>
+                        <a href="?manage=user&kind=payment"   
+                           class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "payment"   ? "active" : "" ?>">Manage Payment</a>
                       </div>
                     <?php
                     }
@@ -113,8 +125,51 @@
               </div>
             </div>
           </div>
+          <div class="col-md-7 col-lg-8 col-xxl-9">
+            <div class="card">
+              <div class="card-header">Add new <?php echo ucfirst($_GET["manage"]); ?> record.</div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label for="flnum" class="form-label">Flight Number</label>
+                      <input type="text" class="form-control" id="flnum" value="" required="">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="available_seat" class="form-label">Available Seat</label>
+                      <input type="number" min="10" max="600" step="1" class="form-control" id="available_seat" value="" required="">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="aircraftID" class="form-label">Aircraft ID</label>
+                      <input type="text" class="form-control" id="aircraftID" value="" required="">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="airlineCode" class="form-label">Airline Code</label>
+                      <input type="text" class="form-control" id="airlineCode" value="" required="">
+                    </div>
+                    <div class="col-md-6 mt-4">
+                      <label for="arrtime" class="form-label">ARR/DEP TIME</label>
+                      <div class="row">
+                        <div class="col-6"><input type="datetime-local" class="form-control" id="arrtime" placeholder="Arrival Time" value="" required=""></div>
+                        <div class="col-6"><input type="datetime-local" class="form-control" id="deptime" placeholder="Depart Time" value="" required=""></div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mt-4">
+                      <label for="arr_ap" class="form-label">ARR/DEP Airport Code</label>
+                      <div class="row">
+                        <div class="col-6"><input type="text" class="form-control" id="arr_ap" placeholder="Arrival Airport" value="" required=""></div>
+                        <div class="col-6"><input type="text" class="form-control" id="dep_ap" placeholder="Depart Airport" value="" required=""></div>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                      <div class="btn btn-success">Add new <?php echo ucfirst($_GET["manage"]); ?> record</div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Query Display -->
         <div class="row mt-4">
           <div class="col-12">
             <div class="card">
@@ -147,14 +202,31 @@
     crossorigin="anonymous"></script>
   <script src="./js/adminlte.js"></script>
   <script type="text/javascript">
+    function rowDataGet (e) {
+        console.log(e)
+    }
     $(document).ready(function() {
+      //function to write actual data of a table row
         $.ajax("api/query.php?query_column&query_table=<?php echo $_GET["kind"]; ?>", {
             type: 'POST',
             success: function(data) {
                 var columns = [];
+                var priColumns = [];
                 $.each(JSON.parse(data), function(key, value){
-                    columns.push({data: value});
-                    $("#table-header").append("<th>"+value+"</th>");
+                    columns.push({data: value.name});
+                    if(value.pkey){
+                        priColumns.push(value.name);
+                    }
+                    $("#table-header").append("<th>"+value.name+"</th>");
+                });
+                columns.push({title:  "Action",
+                  "render": function(data, type, full) { 
+                    console.log(full, type, data)
+                    return `<div class="btn-group">
+                      <button type="button" onclick="rowDataGet(this)" data data-information="${JSON.stringify(full)}" class="btn btn-warning">Edit</button>
+                      <button type="button" onclick="rowDataGet(this)" data data-information="${JSON.stringify(full)}" class="btn btn-danger">Delete</button>
+                    </div>` 
+                    }
                 });
                 $('#table-grid').DataTable({
                     "processing": true,
