@@ -3,6 +3,8 @@
   if(!isset($_SESSION['admin'])){
     header("Location: ./login.php");
   }
+  define("NAVIGATE_PHP", true);
+  include 'navigate.php';
   include 'db.php';
 ?>
 
@@ -30,6 +32,7 @@
     integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css"
     integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" />
 </head>
 
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
@@ -61,114 +64,79 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <nav class="mt-2">
-          <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-
-            <li class="nav-item menu-open">
-              <a href="dashboard.php" class="nav-link">
-                <i class="nav-icon bi bi-bar-chart-line"></i>
-                <p>
-                  Dashboard
-                </p>
-              </a>
-            </li>
-
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon bi bi-table"></i>
-                <p>
-                  Manage Table
-                  <i class="nav-arrow bi bi-chevron-right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link active">
-                    <i class="nav-icon bi bi-circle"></i>
-                    <p>View Table</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-          </ul>
-        </nav>
+        <?php 
+          if(isset($_GET["manage"])){
+            if($_GET["manage"] == "flight"){
+              navigatePanel("mflight");
+            }else if($_GET["manage"] == "user"){
+              navigatePanel("muser");
+            }
+          }else{
+            navigatePanel("moverall");
+          }
+        ?>
       </div>
     </aside>
 
     <main class="app-main">
-
-      <div class='card my-3 mx-5'>
-        <div class='card-header'>
-          <h2>Select Table to View</h2>
-        </div>
-        <div class='card-body p-5'>
-          <form method="get">
-            <div class="row">
-              <div class="col">
-                <select name="table" class="form-select mb-1">
-                  <option value="" disabled selected>Select a table</option>
-                  <?php
-                  $tables = $conn->query("SHOW TABLES");
-                  while ($row = $tables->fetch_array()) {
-                    echo "<option value='" . $row[0] . "'>" . $row[0] . "</option>";
+      <div class="container-fluid py-3">
+        <div class="row">
+          <div class="col-md-5 col-lg-4 col-xxl-3">
+            <div class="card">
+              <div class="card-header"> Managements System: <?php echo isset($_GET["manage"]) ? ucfirst($_GET["manage"]) : "Overall" ?> </div>
+              <div class="card-body">
+                <?php
+                  if(isset($_GET["manage"])){
+                    if($_GET["manage"] == "flight"){
+                    ?>
+                      <div class="list-group">
+                        <a href="?manage=flight&kind=flight"   class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "flight"   ? "active" : "" ?>">Manage Flights</a>
+                        <a href="?manage=flight&kind=seat"     class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "seat"     ? "active" : "" ?>">Manage Seats</a>
+                        <a href="?manage=flight&kind=aircraft" class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "aircraft" ? "active" : "" ?>">Manage Aircrafts</a>
+                        <a href="?manage=flight&kind=airline"  class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "airline"  ? "active" : "" ?>">Manage Airlines</a>
+                        <a href="?manage=flight&kind=airport"  class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "airport"  ? "active" : "" ?>">Manage Airports</a>
+                      </div>
+                    <?php
+                    }else if($_GET["manage"] == "user"){
+                    ?>
+                      <div class="list-group">
+                        <a href="?manage=user&kind=user"      class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "user"      ? "active" : "" ?>">Manage User</a>
+                        <a href="?manage=user&kind=passenger" class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "passenger" ? "active" : "" ?>">Manage Passenger</a>
+                        <a href="?manage=user&kind=booking"   class="list-group-item list-group-item-action <?php echo $_GET["kind"] == "booking"   ? "active" : "" ?>">Manage Booking</a>
+                      </div>
+                    <?php
+                    }
+                  }else{
+                    echo "<h2>Overall Management</h2>";
                   }
                   ?>
-                </select>
-              </div>
-              <div class="col">
-                <input type="number" name="limit" class="form-control" placeholder="Query Limit (Default 100)">
               </div>
             </div>
-            <input type="submit" value="View Table" class="btn btn-primary">
-          </form>
+          </div>
+        </div>
+        <!-- Query Display -->
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">Data Query for <?php echo ucfirst($_GET["kind"]); ?></div>
+              <div class="card-body">
+              <table id="table-grid" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead>
+                <tr id="table-header">
+                    
+                </tr>
+                </thead>
+              </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <?php
-      if (isset($_GET['table'])) {
-        $table = $_GET['table'];
-        $limit = isset($_GET['limit']) && $_GET['limit'] !== "" ? (int)$_GET['limit'] : 100;
-        $query = "SELECT * FROM `$table` LIMIT $limit";
-        $result = $conn->query($query);
-
-        echo "<div class='card mb-3 mx-5'>
-                  <div class='card-header'>
-                    <h3 class='card-title'>" . $table . "</h3>
-                  </div>
-                <div class='card-body p-0'>
-          <table class='table table-striped'><thead>";
-        while ($field = $result->fetch_field()) {
-          echo "<th>" . $field->name . "</th>";
-        }
-        echo "</thead>";
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>";
-          foreach ($row as $value) {
-            echo "<td>" . htmlspecialchars($value) . "</td>";
-          }
-          echo "</tr>";
-        }
-        echo "</table></div>";
-
-        if ($result->num_rows <= 0) {
-          echo "<div class='small-box-footer text-center m-2'>--- (no record found) ---</div>";
-        }
-        // else {
-        //   echo "<form method='get'>";
-        //   echo "<input type='hidden' name='table' value='$table'>";
-        //   echo "<input type='hidden' name='limit' value='" . ($limit + 100) . "'>";
-        //   echo "<input type='submit' value='Query More'>";
-        //   echo "</form>";
-        // }
-
-        echo "</div>";
-      }
-      ?>
     </main>
 
   </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
     integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -178,6 +146,29 @@
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
     crossorigin="anonymous"></script>
   <script src="./js/adminlte.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $.ajax("api/query.php?query_column&query_table=<?php echo $_GET["kind"]; ?>", {
+            type: 'POST',
+            success: function(data) {
+                var columns = [];
+                $.each(JSON.parse(data), function(key, value){
+                    columns.push({data: value});
+                    $("#table-header").append("<th>"+value+"</th>");
+                });
+                $('#table-grid').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url" : "api/query.php?query_table=<?php echo $_GET["kind"]; ?>",
+                        "type" : "POST"
+                    },
+                    "columns": columns
+                });
+            }
+        });
+    });
+</script>
   <script>
     const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
     const Default = {

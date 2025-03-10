@@ -27,20 +27,20 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int NOT NULL,
-  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fullname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `permission` enum('SUPER','DATAENTRY') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+-- CREATE TABLE `admin` (
+--   `id` int NOT NULL,
+--   `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `password` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `fullname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+--   `permission` enum('SUPER','DATAENTRY') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `admin`
---
+-- --
+-- -- Dumping data for table `admin`
+-- --
 
-INSERT INTO `admin` (`id`, `username`, `password`, `fullname`, `permission`) VALUES
-(1, 'admin', '17b925eb099e59617c3b3eb3c907f6c4$5d863b1ffa34557827341cbade90da9eaf4676fc8f8fcdea977862949a77bee8', 'System Admin', 'SUPER');
+-- INSERT INTO `admin` (`id`, `username`, `password`, `fullname`, `permission`) VALUES
+-- (1, 'admin', '17b925eb099e59617c3b3eb3c907f6c4$5d863b1ffa34557827341cbade90da9eaf4676fc8f8fcdea977862949a77bee8', 'System Admin', 'SUPER');
 
 -- --------------------------------------------------------
 
@@ -223,11 +223,11 @@ CREATE TABLE `user` (
   `register_date` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
+-- --
+-- -- Indexes for table `admin`
+-- --
+-- ALTER TABLE `admin`
+--   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `aircraft`
@@ -327,11 +327,11 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+-- --
+-- -- AUTO_INCREMENT for table `admin`
+-- --
+-- ALTER TABLE `admin`
+--   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

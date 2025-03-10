@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once("db.php");
     if(isset($_SESSION['admin'])){
         header("Location: ./dashboard.php");
@@ -6,7 +7,7 @@
         if(isset($_GET["login"])){
             $username = $_POST["username"];
             $password = $_POST["password"];
-            $sql = "SELECT * FROM admin WHERE username = ?"; //Prevention of SQL Injection bind_param
+            $sql = "SELECT * FROM admin WHERE username = ?"; //Prevention of SQL Injection by using prepared statement and bind_param
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $username);
             $stmt->execute();
