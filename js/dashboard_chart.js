@@ -1,4 +1,4 @@
-const response = await fetch('./api/api.php');
+const response = await fetch('./api/dashboard_api.php');
 const fetched_data = await response.json();
 
 // ----------
